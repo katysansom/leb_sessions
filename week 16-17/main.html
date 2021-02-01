@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+    div{
+      height: calc(100vh - 16px);
+      background-color: #f3d1dc;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 300%;
+    }
+    button{
+      background-color: #fdcf76;
+       font-size: 100%;
+       width: 30%;
+    }
+      </style>
+  </head>
+  <body>
+    <div id="theramin">
+      <h1>THERAMIN</h1>
+      <button type="button" name="startStopButton">Start</button>
+    </div>
+    <script>
+    
+    let context = new (window.AudioContext || window.webkitAudioContext)();
+
+    let oscillator = context.createOscillator();
+    oscillator.type = "sine";
+
+    let gain = context.createGain();
+
+    oscillator.connect(gain);
+    gain.connect(context.destination);
+
+    let playing = false;
+    let started = false;
+
+    toggleAudio = (evt) => {
+    let now = context.currentTime;
+    if (playing) {
+
+      document
+        .getElementById("theramin")
+        .removeEventListener("mousemove", updateTheramin);
+
+      evt.target.textContent = "Start";
+
+      gain.gain.setValueAtTime(0, now);
+
+      playing = false;
+
+    } else {
+
+      if (!started) {
+        oscillator.start();
+        started = true;
+      }
+
+      document
+        .getElementById("theramin")
+        .addEventListener("mousemove", updateTheramin);
+
+      evt.target.textContent = "Stop";
+
+      gain.gain.setValueAtTime(1, now);
+
+      playing = true;
+    }
+  };
+  updateTheramin = (evt) => {
+    let volume = evt.clientX / window.innerWidth;
+    let pitch = 1 - evt.clientY / window.innerHeight;
+    pitch = 950 * pitch + 50;
+    let now = context.currentTime;
+    gain.gain.setValueAtTime(volume, now);
+    oscillator.frequency.setValueAtTime(pitch, now);
+  };
+
+
+    </script>
+  </body>
+</html>
