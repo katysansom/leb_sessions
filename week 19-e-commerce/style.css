@@ -1,0 +1,48 @@
+body {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-family: "Playfair Display", serif;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header p {
+  margin: 0;
+}
+
+.content {
+  margin: 20px 0;
+}
+
+.cake-listing {
+  display: flex;
+  align-items: flex-start;
+}
+
+.cake-listing img {
+  width: 30%;
+  margin: 10px;
+}
+
+.cake-listing .details {
+  margin: 10px;
+}
+
+button {
+  background-color: rgb(154, 254, 182);
+  border: none;
+  padding: 10px;
+}
